@@ -25,9 +25,19 @@ public class MainActivity extends AppCompatActivity {
 
         bnView = findViewById(R.id.bnView);
 
+        if (savedInstanceState == null) {
+            loadFrag(new HomeFragment(), false); // Initial fragment, no back stack
+        }
+
         bnView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+
+
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                Fragment selectedFragment = null;
+                boolean addToBackStack = false;
 
                 int id  = item.getItemId();
 
@@ -61,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(flag){
             ft.add(R.id.flView,fragment);
+            ft.addToBackStack(null);
         }
         else{
             ft.replace(R.id.flView,fragment);
