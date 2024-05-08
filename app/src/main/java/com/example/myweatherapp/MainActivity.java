@@ -1,100 +1,73 @@
 package com.example.myweatherapp;
-
-
-
 import android.os.Bundle;
+import android.view.MenuItem;
 
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
-import com.example.myweatherapp.databinding.ActivityMainBinding;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-//963ebc7b1e62163f0113d423f0e0df45
 
 public class MainActivity extends AppCompatActivity {
 
-   private ActivityMainBinding binding;
-
+    BottomNavigationView bnView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-         fetchWeatherData("Rajasthan");
+        setContentView(R.layout.activity_main);
+
+        bnView = findViewById(R.id.bnView);
+
+        bnView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id  = item.getItemId();
+
+
+                if(id == R.id.nav_home){
+                        loadFrag(new HomeFragment(),true);
+                }
+                else if(id == R.id.nav_search){
+
+                    loadFrag(new SearchFragment(),false);
+
+                } else if (id == R.id.nav_forecast) {
+
+                    loadFrag(new ForecastFragment(),false);
+
+                }
+
+
+                return true;
+            }
+        });
+
+        bnView.setSelectedItemId(R.id.nav_home);
 
     }
 
-    private void fetchWeatherData(String cityName) {
+    public void loadFrag(Fragment fragment,boolean flag){
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.openweathermap.org/data/2.5/")
-                .build();
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
-        Call<Hydweatherdata> call = apiInterface.getWeatherData(cityName,"963ebc7b1e62163f0113d423f0e0df45","metric");
-       call.enqueue(new Callback<Hydweatherdata>() {
-           @Override
-           public void onResponse(Call<Hydweatherdata> call, Response<Hydweatherdata> response) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
-               if(response.isSuccessful()){
-                   Hydweatherdata weatherApp = response.body();
+        if(flag){
+            ft.add(R.id.flView,fragment);
+        }
+        else{
+            ft.replace(R.id.flView,fragment);
+        }
 
-
-                   if(weatherApp != null){
-
-                       double temp = weatherApp.getMain().getTemp();
-                       binding.temp.setText(String.valueOf(temp + " °C"));
-
-                       double highTemp = weatherApp.getMain().getTempMax();
-                       binding.textView5.setText(String.valueOf(highTemp + " °C"));
-
-                       double lowTemp = weatherApp.getMain().getTempMin();
-                       binding.textView6.setText(String.valueOf(lowTemp + " °C"));
-
-                       String condition = weatherApp.getWeather().get(0).getDescription();
-                       binding.textView4.setText(condition);
-
-                       binding.textView7.setText(dayName(System.currentTimeMillis()));
-                       binding.textView8.setText(date());
-                       binding.textView.setText(cityName);
-
-                   }
-               }
-
-           }
-
-
-
-           @Override
-           public void onFailure(Call<Hydweatherdata> call, Throwable t) {
-
-               
-
-           }
-       });
+        ft.commit();
 
     }
-
-    public static String dayName(long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
-        return sdf.format(new Date(timestamp));
-    }
-    public static String date() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        return sdf.format(new Date());
     }
 
-}
