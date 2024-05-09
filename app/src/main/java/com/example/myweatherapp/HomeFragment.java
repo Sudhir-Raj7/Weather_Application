@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
 
         weatherViewModel.getSearchQuery().observe(getViewLifecycleOwner(), query -> {
             if (query != null) {
-                Log.d("queryCity", "onCreateView: "+query);
+//                Log.d("queryCity", "onCreateView: "+query);
                 fetchWeatherData(query); // Fetch weather data when query changes
             }
         });

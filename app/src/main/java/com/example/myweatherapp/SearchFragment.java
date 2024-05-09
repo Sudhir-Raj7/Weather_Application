@@ -6,9 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,14 +19,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myweatherapp.databinding.FragmentSearchBinding;
 
+import java.util.ArrayList;
+
 public class SearchFragment extends Fragment {
     private FragmentSearchBinding binding;
     private WeatherViewModel sharedViewModel;
 
+    ArrayList<String> arrCities = new ArrayList<>();
+
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
@@ -58,6 +65,25 @@ public class SearchFragment extends Fragment {
         });
 
 
+        //AutoComplete Textview
+
+        arrCities.add("Hyderabad");
+        arrCities.add("Rajasthan");
+        arrCities.add("Delhi");
+        arrCities.add("Bareilly");
+        arrCities.add("Ahmadabad");
+        arrCities.add("Faridabad");
+        arrCities.add("Jammu");
+        arrCities.add("Bengaluru");
+
+        ArrayAdapter<String> actvAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrCities);
+        binding.searchView.setSuggestionsAdapter(new SearchSuggestionAdapter(actvAdapter));
+
+//        binding.searchView.setThreshold(1);
+
+
+
+
         return binding.getRoot();
     }
 
@@ -70,6 +96,8 @@ public class SearchFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
 
 
 }
