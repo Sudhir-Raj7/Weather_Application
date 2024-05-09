@@ -52,10 +52,24 @@ public class SearchFragment extends Fragment {
                sharedViewModel.setSearchQuery(query.trim());
            }
 
+           switchToHomeFragment();
+
             }
         });
 
 
         return binding.getRoot();
     }
+
+    private void switchToHomeFragment() {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        HomeFragment homeFragment = new HomeFragment();
+        transaction.replace(R.id.flView, homeFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
 }
