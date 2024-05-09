@@ -1,5 +1,6 @@
 package com.example.myweatherapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myweatherapp.databinding.FragmentSearchBinding;
@@ -16,6 +19,8 @@ import com.example.myweatherapp.databinding.FragmentSearchBinding;
 public class SearchFragment extends Fragment {
     private FragmentSearchBinding binding;
     private WeatherViewModel sharedViewModel;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +42,19 @@ public class SearchFragment extends Fragment {
                 return true;
             }
         });
+
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+           String query = binding.searchView.getQuery().toString().trim();
+           if(!query.isEmpty()){
+               sharedViewModel.setSearchQuery(query.trim());
+           }
+
+            }
+        });
+
 
         return binding.getRoot();
     }

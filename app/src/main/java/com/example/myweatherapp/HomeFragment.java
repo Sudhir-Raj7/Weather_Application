@@ -3,6 +3,7 @@ package com.example.myweatherapp;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,13 +34,14 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false); // Using view binding for fragment
-        weatherViewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
+        weatherViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
         weatherViewModel.getSearchQuery().observe(getViewLifecycleOwner(), query -> {
             if (query != null) {
+                Log.d("queryCity", "onCreateView: "+query);
                 fetchWeatherData(query); // Fetch weather data when query changes
             }
         });
@@ -51,8 +53,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-       fetchWeatherData("Hyderabad"); // Example city name
-//        searchCity();
+       fetchWeatherData("Delhi"); // Example city name
         return binding.getRoot(); // Return the bound root view
 
     }
@@ -112,7 +113,7 @@ public class HomeFragment extends Fragment {
             case "Clear Sky":
             case "Sunny":
             case "Clear":
-              binding.main.setBackgroundResource(R.drawable.sunnybg);
+              binding.main.setBackgroundResource(R.drawable.sunnybgg);
                 binding.lottieAnimationView.setAnimation(R.raw.sunny);
                 break;
             case "few clouds":
@@ -143,7 +144,7 @@ public class HomeFragment extends Fragment {
                 binding.lottieAnimationView.setAnimation(R.raw.snowy);
                 break;
             default:
-                binding.main.setBackgroundResource(R.drawable.sunnybg);
+                binding.main.setBackgroundResource(R.drawable.sunnybgg);
                 binding.lottieAnimationView.setAnimation(R.raw.sunny);
                 break;
         }
@@ -151,31 +152,6 @@ public class HomeFragment extends Fragment {
         lottieAnimationView.playAnimation();
 
     }
-
-//    private void searchCity() {
-//        SearchView searchView = binding.searchView;
-//
-//        // Ensure the SearchView is not iconified by default
-//        searchView.setIconifiedByDefault(false);
-//        searchView.setIconified(false);
-//        searchView.requestFocusFromTouch(); // Gain focus and show keyboard
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                Log.d("SearchView", "Query submitted: " + query);
-//                if (query != null && !query.trim().isEmpty()) {
-//                    fetchWeatherData(query.trim()); // Fetch weather data for the query
-//                }
-//                return true; // Indicate query submission handled
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return true; // Indicate query text change is handled
-//            }
-//        });
-//    }
 
     public static String dayName(long timestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());

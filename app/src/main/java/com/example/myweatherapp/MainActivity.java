@@ -39,20 +39,20 @@ public class MainActivity extends AppCompatActivity {
                 Fragment selectedFragment = null;
                 boolean addToBackStack = false;
 
-                int id  = item.getItemId();
+                int itemId = item.getItemId();
 
-
-                if(id == R.id.nav_home){
-                        loadFrag(new HomeFragment(),true);
+                if (itemId == R.id.nav_home) {
+                    selectedFragment = new HomeFragment();
+                } else if (itemId == R.id.nav_search) {
+                    selectedFragment = new SearchFragment();
+                    addToBackStack = true; // Add to back stack to navigate back
+                } else if (itemId == R.id.nav_forecast) {
+                    selectedFragment = new ForecastFragment();
+                    addToBackStack = true; // Add to back stack
                 }
-                else if(id == R.id.nav_search){
 
-                    loadFrag(new SearchFragment(),false);
-
-                } else if (id == R.id.nav_forecast) {
-
-                    loadFrag(new ForecastFragment(),false);
-
+                if (selectedFragment != null) {
+                    loadFrag(selectedFragment, addToBackStack); // Load the selected fragment
                 }
 
 
@@ -64,21 +64,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void loadFrag(Fragment fragment,boolean flag){
-
+    public void loadFrag(Fragment fragment, boolean addToBackStack) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
-        if(flag){
-            ft.add(R.id.flView,fragment);
-            ft.addToBackStack(null);
-        }
-        else{
-            ft.replace(R.id.flView,fragment);
+        // Replace the current fragment with the new one
+        ft.replace(R.id.flView, fragment);
+
+        if (addToBackStack) {
+            ft.addToBackStack(null); // Add the transaction to the back stack
         }
 
-        ft.commit();
-
+        ft.commit(); // Commit the transaction
     }
     }
 
