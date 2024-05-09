@@ -1,6 +1,7 @@
 package com.example.myweatherapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -78,6 +79,24 @@ public class SearchFragment extends Fragment {
 
         ArrayAdapter<String> actvAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrCities);
         binding.searchView.setSuggestionsAdapter(new SearchSuggestionAdapter(actvAdapter));
+
+        binding.searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionClick(int position) {
+                Cursor cursor = (Cursor) binding.searchView.getSuggestionsAdapter().getItem(position);
+                if (cursor != null) {
+                    String suggestion = cursor.getString(cursor.getColumnIndexOrThrow("suggestion"));
+                    binding.searchView.setQuery(suggestion, true); // Set query and submit
+                }
+                return true; // Return true to indicate the click was handled
+            }
+
+            @Override
+            public boolean onSuggestionSelect(int position) {
+                return false;
+            }
+        });
+
 
 //        binding.searchView.setThreshold(1);
 
