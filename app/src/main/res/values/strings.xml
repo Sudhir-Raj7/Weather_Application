@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">MyWeatherApp</string>
 <!--   TODO what is %f?-->
-    <string name="high_temperature_placeholder">High Temperature : %f °C</string>
-    <string name="low_temperature_placeholder">Low Temperature : %f °C</string>
+    //it represents floating point numbers we can also use . to set the number of decimal points like %.2f -> value ex:- 2.19
+<!--    <string name="high_temperature_placeholder">High Temperature : %f °C</string>-->
+<!--    <string name="low_temperature_placeholder">Low Temperature : %f °C</string>-->
+    <string name="temperature_format">%.1f °C</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

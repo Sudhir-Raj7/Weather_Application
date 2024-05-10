@@ -115,31 +115,37 @@ public class HomeFragment extends Fragment {
 
 
     private void updateUI(Hydweatherdata weatherApp) {
-        ////TODO create a local variable passing the value of getMain
+        ////TODO create a local variable passing the value of getMain //done
         Main main = weatherApp.getMain();
         double temp = main.getTemp();
-        ////TODO use strings.xml here
-        binding.temp.setText(temp + " °C");
+        ////TODO use strings.xml here //done
+        String tempFormat = getString(R.string.temperature_format);
+
+        String formattedTemp = String.format(Locale.getDefault(),tempFormat,temp);
+
+        binding.temp.setText(formattedTemp);
 
         double highTemp = main.getTempMax();
-        binding.textView5.setText(highTemp + " °C");
+        String formattedHtemp = String.format(Locale.getDefault(),tempFormat,highTemp);
+        binding.textView5.setText(formattedHtemp);
 
         double lowTemp = main.getTempMin();
-        binding.textView6.setText(lowTemp + " °C");
+        String formattedLtemp = String.format(Locale.getDefault(),tempFormat,lowTemp);
+        binding.textView6.setText(formattedLtemp);
 
         String condition = weatherApp.getWeather().get(0).getDescription();
         binding.textView4.setText(condition);
 
-        //// TODO instead of dayName function should be to get today's day
-        binding.textView7.setText(dayName(System.currentTimeMillis()));
-        //// TODO bad function naming
+        //// TODO instead of dayName function should be to get today's day //fixed
+        binding.textView7.setText(TodayDay(System.currentTimeMillis()));
+        //// TODO bad function naming  /fixed
         binding.textView8.setText(date());
         binding.textView.setText(weatherApp.getName());
 
-        changeBgAccToCondt(condition);
+        changeBackgroundAccordingToCondition(condition);
     }
 
-    private void changeBgAccToCondt(String condition) {
+    private void changeBackgroundAccordingToCondition(String condition) {
 
         switch (condition) {
             case "Clear Sky":
@@ -186,7 +192,14 @@ public class HomeFragment extends Fragment {
     }
 
     //// TODO please explain date format EEEE, what is Locale.getDefault()
-    public static String dayName(long timestamp) {
+    /*
+        EEEE returns the full name of the day,
+        Locale.getDefault() returns the default locale for the device, which allows to format dates
+        and other data based on the user's language and region.
+     */
+
+
+    public static String TodayDay(long timestamp) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.getDefault());
         return sdf.format(new Date(timestamp));
     }
