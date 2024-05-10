@@ -30,6 +30,14 @@ public class HomeFragment extends Fragment {
     private WeatherViewModel weatherViewModel;
 
     ////TODO what is the need of an empty constructor
+
+    /*
+    Android requires a no-argument constructor to create instances through
+    reflection.(Reflection is a technique that allows a program to manipulate classes,methods,objects at runtime)
+    In Android, when creating Fragments, Activities, or certain other components, the system often relies on reflection to instantiate these classes,
+    and the presence of an empty constructor is mandatory.
+         */
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -41,10 +49,17 @@ public class HomeFragment extends Fragment {
         weatherViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
         ////TODO what is the use of getViewLifecycleOwner()
+        /*
+        The use of getViewLifecycleOwner() is observing LiveData from WeatherViewModel
+        It ties the observation to the Fragment's view lifecycle,rather than the fragment lifecycle itself
+        ensuring memory leaks(holding on to unwanted data) are avoided, in scenarios like configuration changes
+        or Fragment replacements. It is useful becoz we want to fetch data that are linked to a Fragment's view,
+        like fetching weather data when a search query changes.
+         */
         weatherViewModel.getSearchQuery().observe(getViewLifecycleOwner(), query -> {
             if (query != null) {
 //                Log.d("queryCity", "onCreateView: "+query);
-                fetchWeatherData(query); // Fetch weather data when query changes
+                weatherViewModel.fetchWeatherData(query); // Fetch weather data when query changes
             }
         });
 
@@ -62,48 +77,54 @@ public class HomeFragment extends Fragment {
 
     ////TODO this is part of repository. This should be encapsulated from the view
     ////TODO this code should be part of repository, repository should be only accessible to viewmodel and not the view, this can lead to ANR
-    private void fetchWeatherData(String cityName) {
-        ////TODO URL is global should be part of Constants file which should not be accessible to views etc. Should have a limited scope.
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://api.openweathermap.org/data/2.5/")
-                .build();
+//    private void fetchWeatherData(String cityName) {
+//        ////TODO URL is global should be part of Constants file which should not be accessible to views etc. Should have a limited scope.
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .baseUrl("https://api.openweathermap.org/data/2.5/")
+//                .build();
+//
+//        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+//
+//        ////TODO this is private data. Should not be accessible to views or viewmodel.
+//        Call<Hydweatherdata> call = apiInterface.getWeatherData(cityName, "963ebc7b1e62163f0113d423f0e0df45", "metric");
+//
+//        call.enqueue(new Callback<Hydweatherdata>() {
+//            @Override
+//            public void onResponse(Call<Hydweatherdata> call, Response<Hydweatherdata> response) {
+//                if (response.isSuccessful()) {
+//
+//                    ////TODO what is the purpose of storing this data in the viewmodel
+                      /*
+                      so that the data persists even after configuration changes like rotation and all.
 
-        ApiInterface apiInterface = retrofit.create(ApiInterface.class);
+                       */
 
-        ////TODO this is private data. Should not be accessible to views or viewmodel.
-        Call<Hydweatherdata> call = apiInterface.getWeatherData(cityName, "963ebc7b1e62163f0113d423f0e0df45", "metric");
-
-        call.enqueue(new Callback<Hydweatherdata>() {
-            @Override
-            public void onResponse(Call<Hydweatherdata> call, Response<Hydweatherdata> response) {
-                if (response.isSuccessful()) {
-
-                    ////TODO what is the purpose of storing this data in the viewmodel
-                    weatherViewModel.setWeatherData(response.body()); // Store in ViewModel
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Hydweatherdata> call, Throwable t) {
-                Log.e("HomeFragment", "Failed to fetch weather data", t);
-            }
-        });
-    }
+//                    weatherViewModel.setWeatherData(response.body()); // Store in ViewModel
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Hydweatherdata> call, Throwable t) {
+//                Log.e("HomeFragment", "Failed to fetch weather data", t);
+//            }
+//        });
+//    }
 
 
 
     private void updateUI(Hydweatherdata weatherApp) {
         ////TODO create a local variable passing the value of getMain
-        double temp = weatherApp.getMain().getTemp();
+        Main main = weatherApp.getMain();
+        double temp = main.getTemp();
         ////TODO use strings.xml here
         binding.temp.setText(temp + " °C");
 
-        double highTemp = weatherApp.getMain().getTempMax();
+        double highTemp = main.getTempMax();
         binding.textView5.setText(highTemp + " °C");
 
-        double lowTemp = weatherApp.getMain().getTempMin();
+        double lowTemp = main.getTempMin();
         binding.textView6.setText(lowTemp + " °C");
 
         String condition = weatherApp.getWeather().get(0).getDescription();
