@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
+    <!--TODO why is your constraintlayout inside framelayout-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
@@ -13,7 +14,10 @@
         android:layout_height="match_parent"
         android:background="@drawable/sunnybgg">
 
+        <!--        TODO always use snake casing-->
+        <!--        TODO proper naming of ids-->
 
+        <!--TODO use dimens file for all the margins and padding-->
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimationView"
             android:layout_width="150dp"
@@ -121,6 +125,8 @@
             app:layout_constraintStart_toStartOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
+        <!--        TODO no hardcoded strings in layouts-->
+        <!--        TODO when referring a view don't use @+id-->
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"

@@ -1,5 +1,5 @@
 package com.example.myweatherapp;
-
+////TODO remove unused imports
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -22,10 +22,12 @@ import com.example.myweatherapp.databinding.FragmentSearchBinding;
 
 import java.util.ArrayList;
 
+    ////TODO please indent your code
 public class SearchFragment extends Fragment {
     private FragmentSearchBinding binding;
     private WeatherViewModel sharedViewModel;
 
+    ////TODO why not List<String> arrCities = new ArrayList<>(); please explain
     ArrayList<String> arrCities = new ArrayList<>();
 
 
@@ -34,6 +36,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
 
+        ////TODO please explain why you have used: requireActivity()
         sharedViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -51,6 +54,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        ////TODO disable the button if the query length is < 2 characters
         binding.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,8 +87,10 @@ public class SearchFragment extends Fragment {
         binding.searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
             @Override
             public boolean onSuggestionClick(int position) {
+                ////TODO what is a cursor? Why are we using it?
                 Cursor cursor = (Cursor) binding.searchView.getSuggestionsAdapter().getItem(position);
                 if (cursor != null) {
+                    ////TODO we are throwing an error should be handled inside try and catch
                     String suggestion = cursor.getString(cursor.getColumnIndexOrThrow("suggestion"));
                     binding.searchView.setQuery(suggestion, true); // Set query and submit
                 }
@@ -107,9 +113,11 @@ public class SearchFragment extends Fragment {
     }
 
     private void switchToHomeFragment() {
+        ////TODO please explain getParentFragmentManager
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
+        ////TODO instead of this just pass the data to already existing fragment
         HomeFragment homeFragment = new HomeFragment();
         transaction.replace(R.id.flView, homeFragment);
         transaction.addToBackStack(null);

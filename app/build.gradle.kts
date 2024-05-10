@@ -6,6 +6,7 @@ android {
     namespace = "com.example.myweatherapp"
     compileSdk = 34
 
+    ////TODO what is view binding, why have you enabled this please explain
    viewBinding{
       enable = true;
    }
@@ -38,6 +39,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    //TODO some of the dependencies are using a versions.toml file and another one is directly imported
+    // Please fix this
     implementation("com.airbnb.android:lottie:6.4.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
