@@ -14,7 +14,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        ////TODO use databinding here
         setContentView(R.layout.activity_splash);
+        ////TODO please explain what is Handler, Looper.getMainLooper(),
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -23,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
             },
-                3000
+                3000 ////TODO no magic literals
         );
     }
 }

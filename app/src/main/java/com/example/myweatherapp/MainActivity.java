@@ -21,10 +21,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        ////TODO use binding here
         setContentView(R.layout.activity_main);
 
         bnView = findViewById(R.id.bnView);
 
+        ////TODO please explain why you have added this check
         if (savedInstanceState == null) {
             loadFrag(new HomeFragment(), false); // Initial fragment, no back stack
         }
@@ -64,16 +66,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadFrag(Fragment fragment, boolean addToBackStack) {
+        ////TODO please explain what is getSupportFragmentManager()
         FragmentManager fm = getSupportFragmentManager();
+        ////TODO please explain what is beginTransaction()
         FragmentTransaction ft = fm.beginTransaction();
 
         // Replace the current fragment with the new one
         ft.replace(R.id.flView, fragment);
 
+        ////TODO why have you passed null here?
         if (addToBackStack) {
             ft.addToBackStack(null); // Add the transaction to the back stack
         }
 
+        ////TODO please explain this
         ft.commit(); // Commit the transaction
     }
     }

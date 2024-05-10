@@ -64,6 +64,7 @@ public class Hydweatherdata {
 
 // YApi QuickType插件生成，具体参考文档:https://plugins.jetbrains.com/plugin/18847-yapi-quicktype/documentation
 
+////TODO this class should be inside the parent class
 class Clouds {
     private long all;
 
@@ -75,6 +76,7 @@ class Clouds {
 
 // YApi QuickType插件生成，具体参考文档:https://plugins.jetbrains.com/plugin/18847-yapi-quicktype/documentation
 
+////TODO this class should be inside the parent class
 class Coord {
     private double lon;
     private double lat;
@@ -121,6 +123,7 @@ class Main {
 
 // YApi QuickType插件生成，具体参考文档:https://plugins.jetbrains.com/plugin/18847-yapi-quicktype/documentation
 
+////TODO this class should be inside the parent class
 class Sys {
     private String country;
     private long sunrise;
@@ -148,6 +151,7 @@ class Sys {
 
 // YApi QuickType插件生成，具体参考文档:https://plugins.jetbrains.com/plugin/18847-yapi-quicktype/documentation
 
+////TODO this class should be inside the parent class
 class Weather {
     private String icon;
     private String description;
@@ -171,6 +175,7 @@ class Weather {
 
 // YApi QuickType插件生成，具体参考文档:https://plugins.jetbrains.com/plugin/18847-yapi-quicktype/documentation
 
+////TODO this class should be inside the parent class
 class Wind {
     private long deg;
     private double speed;

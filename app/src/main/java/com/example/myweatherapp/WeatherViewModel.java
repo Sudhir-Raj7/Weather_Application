@@ -16,8 +16,9 @@ public class WeatherViewModel extends ViewModel {
         weatherData.setValue(data);
     }
 
+    ////TODO variables must be defined before functions
     private final MutableLiveData<String> searchQuery = new MutableLiveData<>();
-
+//// TODO Please explain why you have used LiveData here
     public LiveData<String> getSearchQuery() {
         return searchQuery;
     }

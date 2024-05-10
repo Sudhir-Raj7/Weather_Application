@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <!--  TODO try not to use match_parent with constraint layout-->
+<!--TODO do not use @+id-->
+<!--    TODO please use snake case for naming-->
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/flView"
