@@ -1,15 +1,12 @@
 package com.example.myweatherapp;
 ////TODO remove unused imports
-import android.content.Intent;
+
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -22,15 +19,12 @@ import com.example.myweatherapp.databinding.FragmentSearchBinding;
 
 import java.util.ArrayList;
 
-    ////TODO please indent your code
+////TODO please indent your code //done
 public class SearchFragment extends Fragment {
-    private FragmentSearchBinding binding;
-    private WeatherViewModel sharedViewModel;
-
     ////TODO why not List<String> arrCities = new ArrayList<>(); please explain
     ArrayList<String> arrCities = new ArrayList<>();
-
-
+    private FragmentSearchBinding binding;
+    private WeatherViewModel sharedViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,12 +53,12 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-           String query = binding.searchView.getQuery().toString().trim();
-           if(!query.isEmpty()){
-               sharedViewModel.setSearchQuery(query.trim());
-           }
+                String query = binding.searchView.getQuery().toString().trim();
+                if (!query.isEmpty()) {
+                    sharedViewModel.setSearchQuery(query.trim());
+                }
 
-           switchToHomeFragment();
+                switchToHomeFragment();
 
             }
         });
@@ -80,8 +74,12 @@ public class SearchFragment extends Fragment {
         arrCities.add("Faridabad");
         arrCities.add("Jammu");
         arrCities.add("Bengaluru");
+        arrCities.add("Ladakh");
+        arrCities.add("Leh");
 
-        ArrayAdapter<String> actvAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,arrCities);
+
+
+        ArrayAdapter<String> actvAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, arrCities);
         binding.searchView.setSuggestionsAdapter(new SearchSuggestionAdapter(actvAdapter));
 
         binding.searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
@@ -107,8 +105,6 @@ public class SearchFragment extends Fragment {
 //        binding.searchView.setThreshold(1);
 
 
-
-
         return binding.getRoot();
     }
 
@@ -123,8 +119,6 @@ public class SearchFragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-
 
 
 }

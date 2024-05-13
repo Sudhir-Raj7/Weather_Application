@@ -1,51 +1,77 @@
 package com.example.myweatherapp;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myweatherapp.databinding.FragmentForecastBinding;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ForecastFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentForecastBinding binding;
+    private RVAdapter adapter;
+
+    private WeatherViewModel viewModel;
 
     public ForecastFragment() {
-        // Required empty public constructor
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static ForecastFragment newInstance(String param1, String param2) {
-        ForecastFragment fragment = new ForecastFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forecast, container, false);
+        binding = FragmentForecastBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+
+        RecyclerView recyclerView = binding.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initialize ViewModel
+        viewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
+
+        viewModel.getSearchQuery().observe(getViewLifecycleOwner(), query -> {
+            if (query != null) {
+                Log.d("queryCity", "onCreateView: "+query);
+                viewModel.fetchWeatherForecast(query); // Fetch weather data when query changes
+            }
+        });
+
+
+
+        viewModel.getWeatherForecastData().observe(getViewLifecycleOwner(), weatherData -> {
+            if (weatherData != null && !weatherData.isEmpty()) {
+               adapter = new RVAdapter(getContext(),weatherData);
+               recyclerView.setAdapter(adapter);
+                Log.d("bgg", "onCreateView: "+weatherData);
+            } else {
+                Log.e("ForecastFragment", "Weather data is null or empty");
+            }
+        });
+
+        // Fetch weather forecast data
+        viewModel.fetchWeatherForecast("Delhi");
+
+         return view;
     }
+
+
+
 }

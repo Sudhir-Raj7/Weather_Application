@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//       fetchWeatherData("Delhi"); // Example city name
+//      weatherViewModel.fetchWeatherData("Delhi"); // Example city name
         return binding.getRoot(); // Return the bound root view
 
     }

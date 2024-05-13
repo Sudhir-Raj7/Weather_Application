@@ -22,4 +22,9 @@ public class WeatherRepository {
         call.enqueue(callback);
     }
 
+    public void fetchWeatherForecast(String cityName, Callback<WeatherForecastResponse> callback) {
+        Call<WeatherForecastResponse> call = apiInterface.getWeatherForecast(cityName, Constants.API_KEY);
+        call.enqueue(callback);
+    }
+
 }

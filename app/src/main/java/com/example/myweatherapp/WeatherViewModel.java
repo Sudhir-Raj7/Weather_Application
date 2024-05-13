@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,6 +16,7 @@ public class WeatherViewModel extends ViewModel {
 
     private final WeatherRepository weatherRepository;
     private final MutableLiveData<Hydweatherdata> weatherData = new MutableLiveData<>();
+    private final MutableLiveData<List<WeatherForecastResponse.WeatherData>> weatherForecastData = new MutableLiveData<>();
 
     public WeatherViewModel() {
         weatherRepository = new WeatherRepository();
@@ -34,6 +37,30 @@ public class WeatherViewModel extends ViewModel {
             }
         });
     }
+
+
+    public LiveData<List<WeatherForecastResponse.WeatherData>> getWeatherForecastData() {
+        return weatherForecastData;
+    }
+
+
+    public void fetchWeatherForecast(String cityName) {
+        weatherRepository.fetchWeatherForecast(cityName, new Callback<WeatherForecastResponse>() {
+            @Override
+            public void onResponse(Call<WeatherForecastResponse> call, Response<WeatherForecastResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<WeatherForecastResponse.WeatherData> dataList = response.body().getList();
+                    weatherForecastData.setValue(dataList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherForecastResponse> call, Throwable t) {
+                Log.e("WeatherViewModel", "Failed to fetch weather forecast data", t);
+            }
+        });
+    }
+
 
     public LiveData<Hydweatherdata> getWeatherData() {
         return weatherData;

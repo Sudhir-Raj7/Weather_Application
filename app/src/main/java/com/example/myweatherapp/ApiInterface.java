@@ -11,6 +11,10 @@ public interface ApiInterface {
            @Query("appid") String appid,
            @Query(("units")) String units
     );
-
+    @GET("forecast")
+    Call<WeatherForecastResponse> getWeatherForecast(
+            @Query("q") String cityName,
+            @Query("appid") String apiKey
+    );
 
 }
