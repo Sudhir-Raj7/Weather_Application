@@ -1,8 +1,9 @@
 package com.example.myweatherapp;
-////TODO remove unused imports
+////TODO remove unused imports //done
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,10 @@ import java.util.ArrayList;
 ////TODO please indent your code //done
 public class SearchFragment extends Fragment {
     ////TODO why not List<String> arrCities = new ArrayList<>(); please explain
+    /*
+    I did not think about it before yes we can use List<String> which is more flexible and
+     it allows to easily switch to a different implementation of the List interface in the future without changing the rest of the code.
+     */
     ArrayList<String> arrCities = new ArrayList<>();
     private FragmentSearchBinding binding;
     private WeatherViewModel sharedViewModel;
@@ -31,6 +36,10 @@ public class SearchFragment extends Fragment {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
 
         ////TODO please explain why you have used: requireActivity()
+        /*
+        Using requireActivity() ensures that the ViewModel is scoped to the activity's lifecycle rather thaan a fragment, and
+       also means that the ViewModel will be retained as long as the activity is not destroyed, even if the fragment is destroyed.
+         */
         sharedViewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -48,13 +57,13 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        ////TODO disable the button if the query length is < 2 characters
+        ////TODO disable the button if the query length is < 2 characters //done
         binding.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String query = binding.searchView.getQuery().toString().trim();
-                if (!query.isEmpty()) {
+                if (!query.isEmpty() && query.length() >= 2) { //added the required condn to disable the button.
                     sharedViewModel.setSearchQuery(query.trim());
                 }
 
@@ -86,10 +95,21 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onSuggestionClick(int position) {
                 ////TODO what is a cursor? Why are we using it?
+                /*
+                 we're using the Cursor to retrieve data from the suggestions adapter of a SearchView.
+                 When a suggestion is clicked, we retrieve the corresponding Cursor object representing the clicked suggestion.
+                 The Cursor contains the text of  the suggestion which we are extracting and using in our application.
+                 */
                 Cursor cursor = (Cursor) binding.searchView.getSuggestionsAdapter().getItem(position);
                 if (cursor != null) {
-                    ////TODO we are throwing an error should be handled inside try and catch
-                    String suggestion = cursor.getString(cursor.getColumnIndexOrThrow("suggestion"));
+                    ////TODO we are throwing an error should be handled inside try and catch //done
+                    String suggestion = "";
+                    try {
+                        suggestion = cursor.getString(cursor.getColumnIndexOrThrow("suggestion"));
+                    } catch (IllegalArgumentException e) {
+                        Log.e("SearchFragment", "IllegalArgumentException: " + e.getMessage());
+                    }
+
                     binding.searchView.setQuery(suggestion, true); // Set query and submit
                 }
                 return true; // Return true to indicate the click was handled
@@ -109,7 +129,12 @@ public class SearchFragment extends Fragment {
     }
 
     private void switchToHomeFragment() {
-        ////TODO please explain getParentFragmentManager
+        ////TODO please explain getParentFragmentManager //done
+        /*
+        Every fragment has its own FragmentManager, which is responsible for handling fragment transactions within that fragment.
+        but here we need to perform a fragment transaction that involves the parent container of the current fragment,
+        that's why we are  using getParentFragmentManager() to get the FragmentManager associated with parent.
+         */
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 

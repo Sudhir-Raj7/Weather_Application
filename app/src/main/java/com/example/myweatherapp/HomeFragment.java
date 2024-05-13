@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
 
 
 
-    private void updateUI(Hydweatherdata weatherApp) {
+    public void updateUI(Hydweatherdata weatherApp) {
         ////TODO create a local variable passing the value of getMain //done
         Main main = weatherApp.getMain();
         double temp = main.getTemp();

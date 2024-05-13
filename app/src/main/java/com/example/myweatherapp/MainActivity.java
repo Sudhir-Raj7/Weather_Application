@@ -24,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         ////TODO use binding here - //fixed
         setContentView(binding.getRoot());
 
-        bnView = findViewById(R.id.bnView);
+        bnView = binding.bnView;
 
         ////TODO please explain why you have added this check
         /*
