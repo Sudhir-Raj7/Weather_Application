@@ -6,8 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".SearchFragment">
 
-    <!--TODO why is your constraintlayout inside framelayout-->
-    <!--TODO remove blank space-->
+    <!--TODO why is your constraintlayout inside framelayout
+    The ConstraintLayout is inside the FrameLayout because the FrameLayout serves as
+t    he root layout container for the XML file.
+    -->
+    <!--TODO remove blank space okay-->
     <!--TODO incorrect drawable spelling-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,48 +19,31 @@
         android:background="@drawable/snowy"
         >
 
-
-        <!--        TODO always use snake casing-->
-        <!--        TODO proper naming of ids-->
-        <!--TODO use dimens file for all the margins and padding-->
-        <!--TODO query hint should be in strings.xml file-->
+        <!--        TODO always use snake casing okay will take care-->
+        <!--        TODO proper naming of ids okay will take care-->
+        <!--TODO use dimens file for all the margins and padding //done-->
+        <!--TODO query hint should be in strings.xml file  //done-->
         <SearchView
             android:id="@+id/searchView"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/searchView_width"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="232dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="@dimen/searchView_margin_left"
+            android:layout_marginTop="@dimen/searchView_margin_top"
+            android:layout_marginRight="@dimen/searchView_margin_right"
             android:background="@drawable/searchviewshape"
             android:iconifiedByDefault="false"
-            android:queryHint="Search for a city"
+            android:queryHint="@string/searchView_queryHint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-<!--        <AutoCompleteTextView-->
-<!--            android:id="@+id/actxtV"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="44dp"-->
-<!--            android:layout_marginTop="44dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            android:background="@drawable/searchviewshape"-->
-
-<!--            android:hint="Search for a city"-->
-<!--            android:layout_marginLeft="8dp"-->
-<!--            android:layout_marginRight="8dp"-->
-<!--            app:layout_constraintHorizontal_bias="1.0"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/searchView" />-->
 
         <!--        TODO when referring a view don't use @+id-->
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/Button_margin_top"
             android:text="Submit"
             android:textColor="@color/black"
 

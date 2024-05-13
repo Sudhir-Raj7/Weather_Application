@@ -9,6 +9,9 @@
 
     <string name="textview1">My Weather App</string>
     <string name="textview2">Designed by \nSudhir Raj</string>
+    <string name="textview8_sample_text">7 May 2024</string>
+    <string name="searchView_queryHint">Search for a city</string>
+
 
 
 </resources>

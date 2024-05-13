@@ -8,6 +8,30 @@
     <dimen name="textView1_textSize">25sp</dimen>
     <dimen name="textView2_textSize">25sp</dimen>
     <dimen name="textView2_margin_bottom">132dp</dimen>
+    <dimen name="lottie_width">150dp</dimen>
+    <dimen name="lottie_height">150dp</dimen>
+    <dimen name="lottie_marginSt">16dp</dimen>
+    <dimen name="lottie_margin_top">24dp</dimen>
+    <dimen name="textview_margin_top">164dp</dimen>
+    <dimen name="textview_dpadding">15dp</dimen>
+    <dimen name="textview3_margin_top">40dp</dimen>
+    <dimen name="textview3_textSize">32sp</dimen>
+    <dimen name="temp_textSize">28sp</dimen>
+    <dimen name="textview4_textSize">22sp</dimen>
+    <dimen name="textview5_textSize">20sp</dimen>
+    <dimen name="textview5_margin_top">34dp</dimen>
+    <dimen name="textview6_textSize">20sp</dimen>
+    <dimen name="textview6_margin_top">2dp</dimen>
+    <dimen name="textview7_textSize">16sp</dimen>
+    <dimen name="textview7_margin_top">24dp</dimen>
+    <dimen name="textview8_textSize">17sp</dimen>
+    <dimen name="textview8_margin_top">8dp</dimen>
+    <dimen name="searchView_width">0dp</dimen>
+    <dimen name="searchView_margin_top">232dp</dimen>
+    <dimen name="searchView_margin_left">8dp</dimen>
+    <dimen name="searchView_margin_right">8dp</dimen>
+    <dimen name="Button_margin_top">24dp</dimen>
+
 
 
 </resources>
