@@ -140,7 +140,7 @@ public class SearchFragment extends Fragment {
 
         ////TODO instead of this just pass the data to already existing fragment
         HomeFragment homeFragment = new HomeFragment();
-        transaction.replace(R.id.flView, homeFragment);
+        transaction.replace(R.id.fl_view, homeFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

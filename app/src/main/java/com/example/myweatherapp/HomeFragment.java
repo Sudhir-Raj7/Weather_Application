@@ -1,7 +1,6 @@
 package com.example.myweatherapp;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,15 +9,9 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.myweatherapp.databinding.FragmentHomeBinding; // Change to the correct binding class
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -178,7 +171,7 @@ public class HomeFragment extends Fragment {
             case "Heavy Snow":
             case "Moderate Snow":
             case "Blizzard":
-                binding.main.setBackgroundResource(R.drawable.snowy);
+                binding.main.setBackgroundResource(R.drawable.snowey);
                 binding.lottieAnimationView.setAnimation(R.raw.snowy);
                 break;
             default:

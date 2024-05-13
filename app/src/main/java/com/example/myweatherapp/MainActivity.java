@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
 
         // Replace the current fragment with the new one
-        ft.replace(R.id.flView, fragment);
+        ft.replace(R.id.fl_view, fragment);
 
         ////TODO why have you passed null here?
         /*

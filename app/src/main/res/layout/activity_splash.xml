@@ -25,15 +25,15 @@ previewed in Android Studio's Layout Editor.
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    TODO never use strings directly in your xml files  //okay-->
-    <!--    TODO id naming should be correct, it should reflect the intention of use  //will take in future-->
+    <!--    TODO never use strings directly in your xml files  //done-->
+    <!--    TODO id naming should be correct, it should reflect the intention of use //done-->
     <!--    TODO always use dimens file for sizes //done-->
     <!-- TODO Please explain(why have your used it?) layout_constraintHorizontal_bias
     This attribute is used to set the horizontal bias of a view within its constraints.
     It determines where a view should be positioned horizontally relative to its constraints.
     -->
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/app_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/textView1_margin_top"
@@ -49,7 +49,7 @@ previewed in Android Studio's Layout Editor.
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/app_designed_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/textView2_margin_bottom"
