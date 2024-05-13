@@ -5,5 +5,10 @@
 <!--    <string name="high_temperature_placeholder">High Temperature : %f °C</string>-->
 <!--    <string name="low_temperature_placeholder">Low Temperature : %f °C</string>-->
     <string name="temperature_format">%.1f °C</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text //done-->
+
+    <string name="textview1">My Weather App</string>
+    <string name="textview2">Designed by \nSudhir Raj</string>
+
+
 </resources>

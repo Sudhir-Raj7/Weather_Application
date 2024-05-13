@@ -18,6 +18,9 @@ public class WeatherViewModel extends ViewModel {
     private final MutableLiveData<Hydweatherdata> weatherData = new MutableLiveData<>();
     private final MutableLiveData<List<WeatherForecastResponse.WeatherData>> weatherForecastData = new MutableLiveData<>();
 
+    ////TODO variables must be defined before functions //done
+    private final MutableLiveData<String> searchQuery = new MutableLiveData<>();
+
     public WeatherViewModel() {
         weatherRepository = new WeatherRepository();
     }
@@ -70,9 +73,13 @@ public class WeatherViewModel extends ViewModel {
         weatherData.setValue(data);
     }
 
-    ////TODO variables must be defined before functions
-    private final MutableLiveData<String> searchQuery = new MutableLiveData<>();
-//// TODO Please explain why you have used LiveData here
+
+//// TODO Please explain why you have used LiveData here //done
+    /*
+
+The LiveData is used to observe changes to the search query.
+By using LiveData, we can ensure that any components observing the search query will be notified whenever it changes.
+     */
     public LiveData<String> getSearchQuery() {
         return searchQuery;
     }

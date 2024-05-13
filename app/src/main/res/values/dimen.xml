@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="imageViewWc_width">211dp</dimen>
+    <dimen name="imageViewWc_height">140dp</dimen>
+    <dimen name="imageViewWc_margin_top">164dp</dimen>
+    <dimen name="textView1_margin_top">24dp</dimen>
+    <dimen name="textView1_textSize">25sp</dimen>
+    <dimen name="textView2_textSize">25sp</dimen>
+    <dimen name="textView2_margin_bottom">132dp</dimen>
+
+
+</resources>

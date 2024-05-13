@@ -1,6 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--TODO Please explain tools:context-->
-<!--TODO ALWAYS INDENT YOUR CODE-->
+<?xml version="1.0" encoding="utf-8"?><!--TODO Please explain tools:context done
+ This attribute is used to specify the context
+(SplashActivity) in which the layout file will be
+previewed in Android Studio's Layout Editor.
+-->
+<!--TODO ALWAYS INDENT YOUR CODE //done-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,31 +13,34 @@
     android:background="@drawable/img"
     tools:context=".SplashActivity">
 
-    <!--    TODO always use dimens file for sizes-->
+    <!--    TODO always use dimens file for sizes //done-->
     <ImageView
         android:id="@+id/imageViewWc"
-        android:layout_width="211dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="164dp"
+        android:layout_width="@dimen/imageViewWc_width"
+        android:layout_height="@dimen/imageViewWc_height"
+        android:layout_marginTop="@dimen/imageViewWc_margin_top"
         android:src="@drawable/white_cloud"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    TODO never use strings directly in your xml files-->
-    <!--    TODO id naming should be correct, it should reflect the intention of use-->
-    <!--    TODO always use dimens file for sizes-->
-    <!-- TODO Please explain(why have your used it?) layout_constraintHorizontal_bias-->
+    <!--    TODO never use strings directly in your xml files  //okay-->
+    <!--    TODO id naming should be correct, it should reflect the intention of use  //will take in future-->
+    <!--    TODO always use dimens file for sizes //done-->
+    <!-- TODO Please explain(why have your used it?) layout_constraintHorizontal_bias
+    This attribute is used to set the horizontal bias of a view within its constraints.
+    It determines where a view should be positioned horizontally relative to its constraints.
+    -->
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/textView1_margin_top"
         android:fontFamily="@font/merriweathersans_semibold"
-        android:text="My Weather App"
+        android:text="@string/textview1"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="@dimen/textView1_textSize"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageViewWc"
         app:layout_constraintHorizontal_bias="1.0"
@@ -46,12 +52,12 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="132dp"
-        android:text="Designed by \nSudhir Raj"
+        android:layout_marginBottom="@dimen/textView2_margin_bottom"
         android:fontFamily="@font/merriweathersans_medium"
+        android:text="@string/textview2"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="@dimen/textView2_textSize"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
