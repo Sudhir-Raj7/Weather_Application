@@ -39,7 +39,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.WeatherViewHolder>
         holder.binding.textViewWeatherDescription.setText(weatherData.getWeather().get(0).getDescription());
         holder.binding.textViewDate.setText(weatherData.getDt_txt());
 
-       holder.binding.lottieAnimationView2.setAnimation(R.raw.sunny);
+        // Call method to set Lottie animation based on weather condition
+        changeAnimationAccordingToCondition(weatherData.getWeather().get(0).getDescription(), holder.binding.lottieAnimationView2);
+
 
     }
 
@@ -58,46 +60,46 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.WeatherViewHolder>
     }
 
 
-    private void changeBackgroundAccordingToCondition(String condition) {
 
-        switch (condition) {
-            case "Clear Sky":
-            case "Sunny":
-            case "Clear":
-                binding.lottieAnimationView2.setAnimation(R.raw.sunny);
+    // Method to set Lottie animation based on weather condition
+    private void changeAnimationAccordingToCondition(String condition, LottieAnimationView animationView) {
+        switch (condition.toLowerCase()) {
+            case "clear sky":
+            case "sunny":
+            case "clear":
+                animationView.setAnimation(R.raw.sunny);
                 break;
             case "few clouds":
-            case "partly clouds":
+            case "partly cloudy":
             case "overcast":
-            case "Mist":
+            case "mist":
             case "broken clouds":
-            case "Foggy":
+            case "foggy":
             case "scattered clouds":
-                binding.lottieAnimationView2.setAnimation(R.raw.cloudy);
+                animationView.setAnimation(R.raw.cloudy);
                 break;
             case "light rain":
-            case "Drizzle":
-            case "Moderate Rain":
-            case "Showers":
-            case "Heavy Rain":
-            case "Rain":
+            case "drizzle":
+            case "moderate rain":
+            case "showers":
+            case "heavy rain":
+            case "rain":
             case "shower rain":
-                binding.lottieAnimationView2.setAnimation(R.raw.rainy);
+                animationView.setAnimation(R.raw.rainy);
                 break;
-            case "Light Snow":
-            case "Heavy Snow":
-            case "Moderate Snow":
-            case "Blizzard":
-                binding.lottieAnimationView2.setAnimation(R.raw.snowy);
+            case "light snow":
+            case "heavy snow":
+            case "moderate snow":
+            case "blizzard":
+                animationView.setAnimation(R.raw.snowy);
                 break;
             default:
-                binding.lottieAnimationView2.setAnimation(R.raw.sunny);
+                animationView.setAnimation(R.raw.sunny);
                 break;
         }
-        LottieAnimationView lottieAnimationView = binding.lottieAnimationView2;
-        lottieAnimationView.playAnimation();
-
+        animationView.playAnimation();
     }
+
 
 
 }
